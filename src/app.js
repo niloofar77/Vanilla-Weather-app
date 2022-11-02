@@ -21,26 +21,42 @@ function formatDate(timestamp) {
 
   return `${day} ${hours}:${minutes}`;
 }
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  return days[day];
+}
 function displayForcast(response) {
-  console.log(response.data.daily);
+  let forcast = response.data.daily;
   let forcastElement = document.querySelector("#forcast");
   let forcastHtml = `<div class="row">`;
   let days = ["Thu", "Fri", "Sat", "Sun"];
-  days.forEach(function (day) {
-    forcastHtml =
-      forcastHtml +
-      `
+  forcast.forEach(function (forcastDay, index) {
+    if (index < 6) {
+      forcastHtml =
+        forcastHtml +
+        `
    
               <div class="col-2">
-                <div class="weather-forcast-date">${day}</div>
-                <img src="images/partly_cloudy.png" alt="" width="42" />
+                <div class="weather-forcast-date">${formatDay(
+                  forcastDay.dt
+                )}</div>
+                <img src="http://openweathermap.org/img/wn/${
+                  forcastDay.weather[0].icon
+                }@2x.png" alt="" width="42" />
                 <div class="weather-forcast-temprature">
-                  <span class="weather-forcast-temprature-max"> 18° </span>
-                  <span class="weather-forcast-temprature-min">12°</span>
+                  <span class="weather-forcast-temprature-max"> ${Math.round(
+                    forcastDay.temp.max
+                  )} </span>
+                  <span class="weather-forcast-temprature-min">${Math.round(
+                    forcastDay.temp.min
+                  )}</span>
                 </div>
               </div>
            
          `;
+    }
   });
 
   forcastHtml = forcastHtml + "  </div>";
@@ -49,8 +65,9 @@ function displayForcast(response) {
 }
 function getForcast(coordinates) {
   console.log(coordinates.lat);
-  let apiKey = "d51a066fdbb7f2a30b8dc4fd0e3725e0";
+  let apiKey = "c5f0e59acac64258bb92ed027d20c68f";
   let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+  // let apiUrl = `https://api.shecodes.io/weather/v1/current?lon=${lon}&lat=${lat}&key=${};`;
   console.log(apiUrl);
   axios.get(apiUrl).then(displayForcast);
 }
@@ -78,7 +95,9 @@ function displayTemperature(response) {
   getForcast(response.data.coord);
 }
 function search(city) {
-  let apiKey = "d51a066fdbb7f2a30b8dc4fd0e3725e0";
+  // let apiKey = "a6a83d0066503tdd340bfof35ff4dbe0";
+  let apiKey = "c5f0e59acac64258bb92ed027d20c68f";
+  // let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
   console.log(apiUrl);
   axios.get(apiUrl).then(displayTemperature);
