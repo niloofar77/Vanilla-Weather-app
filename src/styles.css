@@ -1,5 +1,5 @@
 body {
-  background-color: #e8ecee;
+  background-color: #e9ebf8;
 }
 
 h1 {
@@ -29,7 +29,7 @@ a {
   text-decoration: none;
 }
 .weather-app {
-  max-width: 600px;
+  max-width: 700px;
   margin: 10px auto;
   padding: 20px;
   border-radius: 10px;
@@ -37,7 +37,7 @@ a {
   background-color: white;
 }
 .weather-app-wrapper {
-  max-width: 600px;
+  max-width: 700px;
   margin: 30px auto;
 }
 .overview {
@@ -90,7 +90,7 @@ a {
   color: #0d6efd;
 }
 .weather-forcast {
-  margin-top: 48px;
+  margin-top: 28px;
   text-align: center;
 }
 .weather-forcast-date {
@@ -104,4 +104,7 @@ a {
 }
 .weather-forcast-temprature-min {
   opacity: 0.5;
+}
+.forcast-temp {
+  /* border: 1px solid gainsboro; */
 }
